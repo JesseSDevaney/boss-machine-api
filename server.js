@@ -24,10 +24,22 @@ app.use(express.json());
 const apiRouter = require("./server/api.cjs");
 app.use("/api", apiRouter);
 
-// Add middleware for error handling
+// Add middleware for error handling in development
 if (process.env.NODE_ENV === "development") {
-  // only use in development
   app.use(errorhandler());
+}
+
+// Custom error handling middleware for production
+if (process.env.NODE_ENV === "production") {
+  app.use((err, req, res, next) => {
+    if (res.headerSent) {
+      return next(err);
+    }
+
+    const status = err.status || 500;
+
+    res.status(status).send(err.message);
+  });
 }
 
 // This conditional is here for testing purposes:
