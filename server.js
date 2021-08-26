@@ -1,5 +1,7 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
+const errorhandler = require("errorhandler");
 const app = express();
 
 module.exports = app;
@@ -8,6 +10,9 @@ module.exports = app;
  *  the frontend application to interact as planned with the api server
  */
 const PORT = process.env.PORT || 4001;
+
+// Add middleware for logging
+app.use(morgan("tiny"));
 
 // Add middleware for handling CORS requests from index.html
 app.use(cors());
@@ -18,6 +23,12 @@ app.use(express.json());
 // Mount your existing apiRouter below at the '/api' path.
 const apiRouter = require("./server/api.cjs");
 app.use("/api", apiRouter);
+
+// Add middleware for error handling
+if (process.env.NODE_ENV === "development") {
+  // only use in development
+  app.use(errorhandler());
+}
 
 // This conditional is here for testing purposes:
 if (!module.parent) {
