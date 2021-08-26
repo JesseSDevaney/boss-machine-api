@@ -5,11 +5,11 @@ let minionIdCounter = 1;
 const createMinion = () => {
   const weaknesses = new Array(3).fill(0).map(() => {
     const reasons = ['Cannot do', 'Unable to execute', 'Will not build'];
-    const reason = reasons[Math.floor(Math.random() * reasons.length)];
-    const adj = faker.company.bsAdjective();
-    const noun = faker.company.catchPhraseNoun();
-    return `${reason} ${adj} ${noun}`;
-  })
+        const reason = reasons[Math.floor(Math.random() * reasons.length)];
+        const adj = faker.company.bsAdjective();
+        const noun = faker.company.catchPhraseNoun();
+        return `${reason} ${adj} ${noun}`;
+      })
   .join(', ') + ', too ' + faker.hacker.adjective()
 
   return {
@@ -141,8 +141,8 @@ const isValidMeeting = (instance) => {
   if (typeof instance.time !== 'string' || instance.time.length < 4) {
     throw new Error('Meeting time must be valid!');
   }
-  if (!instance.date instanceof Date) {
-    throw new Error('Meeting date must be a JS Date object');
+  if (!(instance.date instanceof Date)) {
+    throw new Error("Meeting date must be a JS Date object");
   }
   if (!instance.day || typeof instance.day !== 'string') {
     throw new Error('Meeting must have a day property');
