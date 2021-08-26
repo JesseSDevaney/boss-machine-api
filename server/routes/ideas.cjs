@@ -7,13 +7,14 @@ const {
   getFromDatabaseById,
   updateInstanceInDatabase,
 } = require("../db.cjs");
+const checkMillionDollarIdea = require("../checkMillionDollarIdea.cjs");
 
 ideasRouter.get("/", (req, res) => {
   const ideas = getAllFromDatabase("ideas");
   res.status(200).json(ideas);
 });
 
-ideasRouter.post("/", (req, res, next) => {
+ideasRouter.post("/", checkMillionDollarIdea, (req, res, next) => {
   try {
     const newIdea = addToDatabase("ideas", req.body);
     res.status(201).json(newIdea);
@@ -39,7 +40,7 @@ ideasRouter.get("/:ideaId", (req, res) => {
   res.status(200).json(req.idea);
 });
 
-ideasRouter.put("/:ideaId", (req, res, next) => {
+ideasRouter.put("/:ideaId", checkMillionDollarIdea, (req, res, next) => {
   try {
     const putIdea = req.body;
     putIdea.id = req.idea.id;
