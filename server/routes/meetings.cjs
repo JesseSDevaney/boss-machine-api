@@ -3,6 +3,7 @@ const meetingsRouter = express.Router();
 const {
   addToDatabase,
   createMeeting,
+  deleteAllFromDatabase,
   getAllFromDatabase,
 } = require("../db.cjs");
 
@@ -21,6 +22,11 @@ meetingsRouter.post("/", (req, res, next) => {
     err.status = 400;
     next(err);
   }
+});
+
+meetingsRouter.delete("/", (req, res) => {
+  deleteAllFromDatabase("meetings");
+  res.status(204).send();
 });
 
 module.exports = meetingsRouter;
