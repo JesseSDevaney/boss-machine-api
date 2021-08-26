@@ -4,6 +4,7 @@ const {
   addToDatabase,
   getAllFromDatabase,
   getFromDatabaseById,
+  updateInstanceInDatabase,
 } = require("../db.cjs");
 
 ideasRouter.get("/", (req, res) => {
@@ -35,6 +36,19 @@ ideasRouter.param("ideaId", (req, res, next, id) => {
 
 ideasRouter.get("/:ideaId", (req, res) => {
   res.status(200).json(req.idea);
+});
+
+ideasRouter.put("/:ideaId", (req, res, next) => {
+  try {
+    const putIdea = req.body;
+    putIdea.id = req.idea.id;
+
+    const updatedIdea = updateInstanceInDatabase("ideas", putIdea);
+    res.status(200).json(updatedIdea);
+  } catch (err) {
+    err.status = 400;
+    next(err);
+  }
 });
 
 module.exports = ideasRouter;
