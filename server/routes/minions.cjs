@@ -3,7 +3,7 @@ const {
   addToDatabase,
   getAllFromDatabase,
   getFromDatabaseById,
-const { addToDatabase, getAllFromDatabase } = require("../db.cjs");
+  updateInstanceInDatabase,
 } = require("../db.cjs");
 const minionsRouter = express.Router();
 
@@ -36,6 +36,19 @@ minionsRouter.param("minionId", (req, res, next, id) => {
 
 minionsRouter.get("/:minionId", (req, res) => {
   res.status(200).json(req.minion);
+});
+
+minionsRouter.put("/:minionId", (req, res, next) => {
+  try {
+    const putMinion = req.body;
+    putMinion.id = req.minion.id;
+
+    const updatedMinion = updateInstanceInDatabase("minions", putMinion);
+    res.status(200).json(updatedMinion);
+  } catch (err) {
+    err.status = 400;
+    next(err);
+  }
 });
 
 module.exports = minionsRouter;
