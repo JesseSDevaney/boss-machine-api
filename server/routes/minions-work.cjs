@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   addToDatabase,
+  deleteFromDatabasebyId,
   getAllFromDatabase,
   getFromDatabaseById,
   updateInstanceInDatabase,
@@ -51,4 +52,10 @@ workRouter.put("/:workId", (req, res, next) => {
     next(err);
   }
 });
+
+workRouter.delete("/:workId", (req, res) => {
+  deleteFromDatabasebyId("work", req.work.id);
+  res.status(204).send();
+});
+
 module.exports = workRouter;
