@@ -12,6 +12,16 @@ Built through Codecademy's [Back-End Engineer](https://www.codecademy.com/learn/
 4. Run the server by executing `npm run start` from the command line.
 5. Open `index.html` in your browser.
 
-## To-Do
+## Usage
 
-- [ ] Create a Section for Usage
+**Home Page:**  
+![home page](https://github.com/JesseSDevaney/boss-machine-api/blob/main/usage_images/index.png?raw=true)
+
+**Minions Page:**  
+![minions page](https://github.com/JesseSDevaney/boss-machine-api/blob/main/usage_images/minions.png?raw=true)
+
+**Minion Page:**  
+![minion page](https://github.com/JesseSDevaney/boss-machine-api/blob/main/usage_images/minion.png?raw=true)
+
+**Million Dollar Ideas Page:**  
+![million dollar ideas page](https://github.com/JesseSDevaney/boss-machine-api/blob/main/usage_images/million-dollar-ideas.png?raw=true)
